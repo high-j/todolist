@@ -79,7 +79,7 @@ export default {
             localStorage.setItem('todos', storageData);
         }
         
-        // 新增已完成事項
+        // 已完成(Done)事項
         function finishTodo(index) {
             let done = todos.value.splice(index, 1);
             list.value.push(done);
