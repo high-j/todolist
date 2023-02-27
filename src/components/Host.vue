@@ -3,7 +3,7 @@
     <form @submit.prevent="addTodo()">
         <label>New Event : </label>
         <input v-model="newTodo" name="newTodo" autocomplete="off">&ensp;
-        <button class="add">Add ToDo</button>
+        <button class="add">ADD TODO</button>
     </form><br>
     <hr />
     <div>
