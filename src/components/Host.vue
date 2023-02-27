@@ -9,27 +9,28 @@
     <div>
         <div class="row">
             <div>
-                <h2>Current List</h2>
+                <h2>Undo</h2>
                 <ul>
                     <li v-for="(todo, index) in todos" :key="index">
                         <span>
                             {{ todo.content }}
                         </span>&ensp;
+                        <button @click="finishTodo(index)" class="finish">Done</button>&ensp;
                         <button @click="removeTodo(index)" class="del">Remove</button>
                     </li>
                 </ul>
-                <h4 v-if="todos.length === 0">Empty list.</h4>
+                <h4 v-if="todos.length === 0">It's Empty !</h4>
             </div>
             <div>
-                <h2> Already Finished</h2>
+                <h2>Finished</h2>
                 <ul>
-                    <li v-for="(todo, index) in todos" :key="index">
-                        <span :class="{ done: todo.done }" @click="doneTodo(todo)" class="ok">
-                            {{ todo.content }}
+                    <li v-for="(todo, index) in list" :key="index">
+                        <span @click="finishTodo(index)" class="ok">
+                            {{ todo[0].content }}
                         </span>&ensp;
                     </li>
                 </ul>
-                <h4 v-if="todos.length === 0">Empty list.</h4>
+                <h4 v-if="list.length === 0">Empty list.</h4>
             </div>
 
         </div>
@@ -48,8 +49,8 @@ export default {
             content: 'Write a blog post'
         }]
         const todosData = JSON.parse(localStorage.getItem('todos')) || defaultData;
-        //console.log(todosData)
         const todos = ref(todosData);
+        //新增todo
         function addTodo() {
             if (newTodo.value) {
                 todos.value.push({
@@ -65,29 +66,43 @@ export default {
             todo.done = !todo.done
             saveData();
         }
-
+        //delete todo item
         function removeTodo(index) {
-            let finish = todos.value.splice(index, 1); //start at index and delete 1 item
-            todos.value.splice(index, 1); //start at index and delete 1 item
+            //splice : start at index and delete 1 item
+            todos.value.splice(index, 1); 
             saveData();
-            list.value.push(finish)
-            //console.log(finish)
             
         }
-
+    
         function saveData() {
             const storageData = JSON.stringify(todos.value);
             localStorage.setItem('todos', storageData);
-            //console.log(todos)
+        }
+        
+        // 新增已完成事項
+        function finishTodo(index) {
+            let done = todos.value.splice(index, 1);
+            list.value.push(done);
+            saveData();
+            finishData();
+            
+        }
+
+        function finishData() {
+            const storageData = JSON.stringify(list.value);
+            localStorage.setItem('list', storageData);
         }
 
         return {
             todos,
+            list,
             newTodo,
             addTodo,
             doneTodo,
             removeTodo,
-            saveData
+            saveData,
+            finishData,
+            finishTodo
         }
     },
 
@@ -95,69 +110,5 @@ export default {
 </script>
 
 <style>
-h1 {
-    font-size: 50px;
-}
-.row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    vertical-align: middle;
-    margin: 2em;
-}
-
-body {
-    background-color: #b49771;
-    color: aliceblue;
-    text-align: center;
-}
-
-h2 {
-    font-size: 30px;
-}
-
-label {
-    font-size: 22px;
-    font-weight: bold;
-}
-
-ul {
-    border-style: dotted;
-    border-radius: 10px;
-    width: 80%;
-    position: relative;
-    left: 5%;
-}
-
-span {
-    text-align: center;
-    font-size: 30px;
-    color: #342E2D;
-}
-
-.add {
-    background-color: rgb(103, 150, 193);
-    border-radius: 10px;
-    font-size: 15px;
-}
-
-.del {
-    background-color: rgb(208, 65, 94);
-    border-radius: 10px;
-    font-size: 15px;
-}
-
-.don {
-    background-color: rgba(65, 208, 179, 0.966);
-    border-radius: 10px;
-    font-size: 15px;
-}
-
-input {
-    width: 200px;
-    height: 25px;
-}
-
-.ok {
-    color: rgb(124, 122, 122);
-}
+@import "./host.css";
 </style>

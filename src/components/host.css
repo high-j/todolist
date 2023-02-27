@@ -1,0 +1,61 @@
+h1 {
+    font-size: 50px;
+    color: rgb(163, 36, 36);
+}
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    vertical-align: middle;
+    margin: 2em;
+}
+
+body {
+    background-color: #b49771;
+    color: aliceblue;
+    text-align: center;
+}
+
+h2 {
+    font-size: 40px;
+}
+
+label {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+ul {
+    border-style: dotted;
+    border-radius: 10px;
+    width: 80%;
+    position: relative;
+    left: 5%;
+}
+
+span {
+    text-align: center;
+    font-size: 30px;
+    color: #342E2D;
+}
+
+.add {
+    background-color: rgb(103, 150, 193);
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.del {
+    background-color: rgb(208, 65, 94);
+    border-radius: 10px;
+    font-size: 15px;
+}
+.finish {
+    background-color: rgb(65, 208, 168);
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+input {
+    width: 200px;
+    height: 25px;
+}
